@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello {{name}}</h1>
+
+<div>Add product</div>
+<div>
+    <form method="post">
+        <input type="text" name="name" placeholder="Enter the name"/>
+        <input type="text" name="price" placeholder="Enter the price"/>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<div>List of product</div>
+{{#products}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{name}}</span>
+        <i>{{price}}</i>
+    </div>
+{{/products}}
 </body>
 </html>
