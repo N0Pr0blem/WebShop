@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +8,7 @@
 
 <div>Add product</div>
 <div>
-    <form method="post">
+    <form th:action="@{/hub}" method="post">
         <input type="text" name="name" placeholder="Enter the name"/>
         <input type="text" name="price" placeholder="Enter the price"/>
         <button type="submit">Add</button>
