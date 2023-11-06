@@ -18,6 +18,14 @@
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
+<div>
+    <h1>Products</h1>
+    <div th:each="el : ${products}">
+        <span th:text="${el.id}"></span>
+        <span th:text="${el.name}"></span>
+        <i th:text="${el.price}"></i>
+    </div>
+</div>
 
 </body>
 </html>
