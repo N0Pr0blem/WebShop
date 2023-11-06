@@ -18,12 +18,12 @@ public class HubController {
     @GetMapping
     public String hub(Map<String, Object> model) {
         Iterable<Product> allProducts = productRepository.findAll();
-        model.put("messages", allProducts);
+        model.put("products", allProducts);
         return "hub";
     }
 
     @PostMapping
-    public String  add(@RequestParam String name,@RequestParam String price, Map<String, Object> model){
+    public String add(@RequestParam String name,@RequestParam String price, Map<String, Object> model){
         Product product = new Product(name,price);
         Iterable<Product> products = productRepository.findAll();
 
