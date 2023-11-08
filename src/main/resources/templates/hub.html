@@ -20,7 +20,7 @@
 <div>
     <h1>Products</h1>
     <div th:each="el : ${products}">
-        <span th:text="${el.id}"></span>
+        <b th:text="${el.id}"></b>
         <span th:text="${el.name}"></span>
         <i th:text="${el.price}"></i>
     </div>
