@@ -11,20 +11,13 @@
     <form th:action="@{/hub}" method="post">
         <input type="text" name="name" placeholder="Enter the name"/>
         <input type="text" name="price" placeholder="Enter the price"/>
+        <input type="text" name="count" placeholder="Enter the count"/>
+        <input type="text" name="image" placeholder="Enter the image url"/>
         <button type="submit">Add</button>
     </form>
 </div>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-<div>
-    <h1>Products</h1>
-    <div th:each="el : ${products}">
-        <b th:text="${el.id}"></b>
-        <span th:text="${el.name}"></span>
-        <i th:text="${el.price}"></i>
-    </div>
-</div>
-
 </body>
 </html>

@@ -14,9 +14,15 @@ public class HubController {
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping
+    @GetMapping("/home")
     public String home(Model model) {
+        Iterable<Product> allProducts = productRepository.findAll();
+        model.addAttribute("products", allProducts);
         return "home";
+    }
+    @GetMapping
+    public String toHome(Model model) {
+        return "redirect:/home";
     }
 
     @GetMapping("/hub")
@@ -27,8 +33,8 @@ public class HubController {
     }
 
     @PostMapping("/hub")
-    public String add(@RequestParam String name, @RequestParam String price, Model model) {
-        Product product = new Product(name, price);
+    public String add(@RequestParam String name, @RequestParam String price,@RequestParam Integer count, @RequestParam String image, Model model) {
+        Product product = new Product(name, price,count,image);
         Iterable<Product> products = productRepository.findAll();
 
         productRepository.save(product);
