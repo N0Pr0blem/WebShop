@@ -9,12 +9,10 @@
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
 <div>Hello, User</div>
-<a th:href="@{/hub}">Admin page</a>
 <div class="container">
-
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-            <div class="card shadow-sm" th:each="el : ${products}" >
+        <div class="col" th:each="el : ${products}">
+            <div class="card shadow-sm" >
                 <img th:src="${el.image}"/>
                 <div class="card-body">
                     <p class="card-text" th:text="${el.name}+' '+${el.price}+' BYN'"></p>
@@ -29,6 +27,9 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+
 </div>
 </body>
 </html>
