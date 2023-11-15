@@ -24,27 +24,10 @@ public class HomeController {
         model.addAttribute("login", login);
         return "home";
     }
+
     @GetMapping
     public String toHome(Model model) {
         return "redirect:/home";
-    }
-
-    @GetMapping("/hub")
-    public String hub(Model model) {
-        Iterable<Product> allProducts = productRepository.findAll();
-        model.addAttribute("products", allProducts);
-        return "hub";
-    }
-
-    @PostMapping("/hub")
-    public String add(@RequestParam String name, @RequestParam String price,@RequestParam Integer count, @RequestParam String image, Model model) {
-        Product product = new Product(name, price,count,image);
-        Iterable<Product> products = productRepository.findAll();
-
-        productRepository.save(product);
-        model.addAttribute("products", products);
-
-        return "hub";
     }
 
 }
