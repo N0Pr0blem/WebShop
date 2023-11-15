@@ -3,6 +3,8 @@ package com.travin.myshop.controller;
 import com.travin.myshop.domain.Role;
 import com.travin.myshop.domain.User;
 import com.travin.myshop.repos.UserRepository;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +18,13 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+    Logger log = LogManager.getLogger(UserController.class);
 
     @GetMapping
     public String userList(Model model) {
         Iterable<User> allUsers = userRepository.findAll();
         model.addAttribute("users", allUsers);
+        log.info("User was added");
         return "userList";
     }
 
@@ -28,14 +32,21 @@ public class UserController {
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+        log.info("user edit form was opened");
         return "user-edit";
     }
 
     @PostMapping
-    public String userSave(@RequestParam String username, @RequestParam Map<String, String> form, @RequestParam("userId") User user) {
+    public String userSave(
+            @RequestParam String username,
+            @RequestParam Map<String, String> form,
+            @RequestParam("userId") User user)
+    {
         user.setUsername(username);
         user.getRoles().clear();
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
+        log.info(Arrays.toString(new Set[]{roles}));
+        log.info(Arrays.toString(new Set[]{form.keySet()}));
 
         for (String key : form.keySet()) {
             if (roles.contains(key)) {
