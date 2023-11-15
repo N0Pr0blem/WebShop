@@ -9,11 +9,14 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<h1>Users</h1>
-<div th:each="el : ${users}">
-    <span th:text="${el.username}"></span>
-    <b th:text="${el.roles}"></b>
-    <a th:href="'/user/' + ${el.id}">edit</a>
-</div>
+<h1>User editor</h1>
+<form th:action="@{/user}" method="post">
+    <input type="text" th:value="${user.username}" name="username">
+    <div th:each="role : ${roles}">
+        <input type="checkbox" th:name="${role}" th:text="${role}" th:checked="${#arrays.contains(user.roles,role)}">
+    </div>
+    <input type="hidden" th:value="${user.id}" name="userId">
+    <button type="submit">Save</button>
+</form>
 </body>
 </html>
