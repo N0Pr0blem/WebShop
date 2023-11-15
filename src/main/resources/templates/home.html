@@ -8,7 +8,6 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<div>Hello, User</div>
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col" th:each="el : ${products}">
@@ -21,7 +20,7 @@
                             <form th:action="${el.id}" method="get">
                                 <input type="submit" value="View" class="btn btn-sm btn-outline-secondary">
                             </form>
-                            <form th:action="'/admin/'+${el.id}" method="get">
+                            <form th:action="'/admin/'+${el.id}" method="get" th:if="${login!='anonymousUser'}">
                                 <input type="submit" value="Edit" class="btn btn-sm btn-outline-secondary">
                             </form>
                         </div>

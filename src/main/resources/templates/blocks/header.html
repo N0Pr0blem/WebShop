@@ -15,17 +15,17 @@
 
             <div class="text-end">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" th:if="${login=='anonymousUser'}">
                         <form th:action="@{/login}" method="post">
                             <input type="submit" value="Login" class="btn btn-outline-light me-2"/>
                         </form>
                     </div>
-                    <div class="col">
+                    <div class="col" th:if="${login=='anonymousUser'}">
                         <form th:action="@{/registration}" method="post">
                             <input type="submit" value="Sign Up" class="btn btn-warning"/>
                         </form>
                     </div>
-                    <div class="col">
+                    <div th:if="${login!='anonymousUser'}" class="col">
                         <form th:action="@{/logout}" method="post">
                             <input type="submit" value="Sign Out" class="btn btn-warning"/>
                         </form>
