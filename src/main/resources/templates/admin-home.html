@@ -8,7 +8,6 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<div>Hello, User</div>
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col" th:each="el : ${products}">
@@ -18,12 +17,8 @@
                     <p class="card-text" th:text="${el.name}+' '+${el.price}+' BYN'"></p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <form th:action="${el.id}" method="get">
-                                <input type="submit" value="View" class="btn btn-sm btn-outline-secondary">
-                            </form>
-                            <form th:action="'/admin/'+${el.id}" method="get">
-                                <input type="submit" value="Edit" class="btn btn-sm btn-outline-secondary">
-                            </form>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary"  >Edit</button>
                         </div>
                         <small class="text-body-secondary" th:text="${el.count}+' шт'"></small>
                     </div>
@@ -31,9 +26,6 @@
             </div>
         </div>
     </div>
-</div>
-<div>
-
 </div>
 </body>
 </html>
