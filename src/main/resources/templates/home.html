@@ -20,7 +20,7 @@
                             <form th:action="${el.id}" method="get">
                                 <input type="submit" value="View" class="btn btn-sm btn-outline-secondary">
                             </form>
-                            <form th:action="'/admin/'+${el.id}" method="get" th:if="${login!='anonymousUser'}">
+                            <form th:action="'/admin/'+${el.id}" method="get" th:if="${#lists.contains(roles,'ADMIN')}">
                                 <input type="submit" value="Edit" class="btn btn-sm btn-outline-secondary">
                             </form>
                         </div>
