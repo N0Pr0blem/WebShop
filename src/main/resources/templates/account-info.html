@@ -9,19 +9,18 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<header class="d-flex justify-content-center py-3">
+<header class="d-flex justify-content-center py-3" th:if="${isAdmin}">
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="/admin/user" class="nav-link active">Users</a></li>
+        <li class="nav-item"><a href="#" class="nav-link active">Account</a></li>
+        <li class="nav-item"><a href="/admin/user" class="nav-link">Users</a></li>
         <li class="nav-item"><a href="/admin/add" class="nav-link">Products</a></li>
     </ul>
 </header>
 <div class="container">
-    <h1>Users</h1>
-    <div th:each="el : ${users}">
-        <span th:text="${el.username}"></span>
-        <b th:text="${el.roles}"></b>
-        <a th:href="'/user/' + ${el.id}">edit</a>
+    <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
+    <div th:if="${user}">
+        <span th:text="${user.id}"></span>
     </div>
 </div>
 </body>

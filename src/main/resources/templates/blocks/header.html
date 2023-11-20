@@ -7,11 +7,12 @@
                 </svg>
             </a>
 
+            <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></div>
+
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
                        aria-label="Search">
             </form>
-
 
             <div class="text-end">
                 <div class="row">
@@ -28,6 +29,11 @@
                     <div th:if="${login!='anonymousUser'}" class="col">
                         <form th:action="@{/logout}" method="post">
                             <input type="submit" value="Sign Out" class="btn btn-warning"/>
+                        </form>
+                    </div>
+                    <div th:if="${login!='anonymousUser'}" class="col">
+                        <form th:action="@{/account}" method="post">
+                            <input type="submit" value="Account" class="btn btn-outline-light me-2"/>
                         </form>
                     </div>
                 </div>

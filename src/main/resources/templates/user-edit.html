@@ -9,14 +9,24 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<h1>User editor</h1>
-<form th:action="@{/user}" method="post">
-    <input type="text" th:value="${user.username}" name="username">
-    <div th:each="role : ${roles}">
-        <input type="checkbox" th:name="${role}" th:text="${role}" th:checked="${#arrays.contains(user.roles,role)}">
-    </div>
-    <input type="hidden" th:value="${user.id}" name="userId">
-    <button type="submit">Save</button>
-</form>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/admin/user" class="nav-link active">Users</a></li>
+        <li class="nav-item"><a href="/admin/add" class="nav-link">Products</a></li>
+    </ul>
+</header>
+<div class="container">
+    <h1>User editor</h1>
+    <form th:action="@{/user}" method="post">
+        <input type="text" th:value="${user.username}" name="username">
+        <div th:each="role : ${roles}">
+            <input type="checkbox" th:name="${role}" th:text="${role}"
+                   th:checked="${#arrays.contains(user.roles,role)}">
+        </div>
+        <input type="hidden" th:value="${user.id}" name="userId">
+        <button type="submit">Save</button>
+    </form>
+</div>
 </body>
 </html>
