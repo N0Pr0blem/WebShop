@@ -9,6 +9,13 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="/admin/user" class="nav-link active">Users</a></li>
+        <li class="nav-item"><a href="/admin/add" class="nav-link">Products</a></li>
+    </ul>
+</header>
 <div class="container">
     <h1>User editor</h1>
     <form th:action="@{/user}" method="post">
