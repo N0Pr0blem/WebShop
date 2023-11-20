@@ -24,10 +24,6 @@ public class AdminController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/")
-    public String againToMainAdminPage(Model model) {
-        return "redirect:/admin/home";
-    }
 
     @GetMapping("/add")
     public String hub(Model model) {
