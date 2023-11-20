@@ -1,6 +1,7 @@
 package com.travin.myshop.controller;
 
 import com.travin.myshop.domain.Product;
+import com.travin.myshop.domain.Role;
 import com.travin.myshop.repos.ProductRepository;
 import com.travin.myshop.repos.UserRepository;
 import org.apache.log4j.LogManager;
@@ -24,9 +25,14 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model,Principal principal) {
         Iterable<Product> allProducts = productRepository.findAll();
+        String login = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        boolean isAdmin;
         model.addAttribute("products", allProducts);
-        model.addAttribute("roles", userRepository.findByUsername(principal.getName()).getRoles());
-        log.info(userRepository.findByUsername(principal.getName()).getRoles());
+        model.addAttribute("login", login);
+        if(principal!=null) {
+            isAdmin = userRepository.findByUsername(principal.getName()).getRoles().contains(Role.ADMIN);
+            model.addAttribute("isAdmin",isAdmin);
+        }
         return "home";
     }
 

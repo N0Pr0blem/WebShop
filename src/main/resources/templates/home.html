@@ -8,7 +8,7 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header" class="p-3 text-bg-dark" style="flex: 1;"></header>
-<header class="d-flex justify-content-center py-3">
+<header class="d-flex justify-content-center py-3" th:if="${isAdmin}">
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="/home" class="nav-link active" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="/admin/user" class="nav-link">Users</a></li>
@@ -27,7 +27,7 @@
                             <form th:action="${el.id}" method="get">
                                 <input type="submit" value="View" class="btn btn-sm btn-outline-secondary">
                             </form>
-                            <form th:action="'/admin/'+${el.id}" method="get" th:if="${#lists.contains(roles,'ADMIN')}">
+                            <form th:action="'/admin/'+${el.id}" method="get" th:if="${isAdmin}">
                                 <input type="submit" value="Edit" class="btn btn-sm btn-outline-secondary">
                             </form>
                         </div>
