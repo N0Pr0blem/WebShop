@@ -19,16 +19,9 @@ public class AdminController {
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping("/home")
-    public String mainAdminPage(Model model) {
-        Iterable<Product> allProducts = productRepository.findAll();
-        model.addAttribute("products", allProducts);
-        return "admin-home";
-    }
-
     @GetMapping
     public String toMainAdminPage(Model model) {
-        return "redirect:/admin/home";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/")

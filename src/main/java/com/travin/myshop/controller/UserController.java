@@ -7,12 +7,13 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -43,8 +44,7 @@ public class UserController {
     public String userSave(
             @RequestParam String username,
             @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user)
-    {
+            @RequestParam("userId") User user) {
         user.setUsername(username);
         user.getRoles().clear();
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
@@ -61,4 +61,5 @@ public class UserController {
 
         return "redirect:/user";
     }
+
 }

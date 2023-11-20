@@ -30,6 +30,11 @@
                             <input type="submit" value="Sign Out" class="btn btn-warning"/>
                         </form>
                     </div>
+                    <div th:if="${login!='anonymousUser'}" class="col">
+                        <form th:action="@{/account}" method="post">
+                            <input type="submit" value="Sign Out" class="btn btn-outline-light me-2"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
