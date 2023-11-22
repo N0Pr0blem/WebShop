@@ -11,16 +11,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String price;
+    private Double price;
+    private String company;
+    private String description;
     private Integer count;
     private String image;
 
     public Product() {
     }
 
-    public Product(String name, String price, Integer count, String image) {
+    public Product(String name,  Double price,String company,String description,Integer count, String image) {
         this.name = name;
         this.price = price;
+        this.company = company;
+        this.description = description;
         this.count = count;
         this.image = image;
     }
@@ -41,11 +45,11 @@ public class Product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
     public Integer getCount() {
@@ -63,4 +67,19 @@ public class Product {
         this.image = image;
     }
 
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

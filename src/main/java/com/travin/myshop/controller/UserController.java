@@ -30,9 +30,6 @@ public class UserController {
         ArrayList<User> allUsers = (ArrayList<User>) userRepository.findAll();
         model.addAttribute("users", allUsers);
         log.info("Users showed");
-        for (User user:allUsers) {
-            log.info(user.getRoles().contains(Role.ADMIN));
-        }
         return "user-list";
     }
 
@@ -47,9 +44,13 @@ public class UserController {
     @PostMapping
     public String userSave(
             @RequestParam String username,
+            @RequestParam String phone,
+            @RequestParam String email,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user) {
         user.setUsername(username);
+        user.setPhone(phone);
+        user.setEmail(email);
         user.getRoles().clear();
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
         log.info(Arrays.toString(new Set[]{roles}));
