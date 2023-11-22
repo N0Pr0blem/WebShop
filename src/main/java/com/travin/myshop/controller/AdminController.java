@@ -21,7 +21,7 @@ public class AdminController {
 
     @GetMapping
     public String toMainAdminPage(Model model) {
-        return "redirect:/admin/user";
+        return "redirect:/home";
     }
 
 
@@ -34,6 +34,6 @@ public class AdminController {
     public String add(@RequestParam String name, @RequestParam String price, @RequestParam Integer count, @RequestParam String image, Model model) {
         Product product = new Product(name, price, count, image);
         productRepository.save(product);
-        return "admin/home";
+        return "/home";
     }
 }

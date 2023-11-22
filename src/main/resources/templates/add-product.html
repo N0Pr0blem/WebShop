@@ -16,17 +16,28 @@
         <li class="nav-item"><a href="/admin/add" class="nav-link active">Products</a></li>
     </ul>
 </header>
-<div class="container">
-    <div>Add product</div>
-    <div>
-        <form th:action="@{/add}" method="post">
-            <input type="text" name="name" placeholder="Enter the name"/>
-            <input type="text" name="price" placeholder="Enter the price"/>
-            <input type="text" name="count" placeholder="Enter the count"/>
-            <input type="text" name="image" placeholder="Enter the image url"/>
-            <button type="submit">Add</button>
-        </form>
-    </div>
-</div>
+<main class="form-signin w-100 m-auto" >
+    <form th:action="@{/admin/add}" method="post" style="width:500px;height:100px;margin-left: auto; margin-right: auto;text-align:center;">
+        <h1 class="h3 mb-3 fw-normal">Enter data</h1>
+
+        <div class="form-floating">
+            <input type="text" name="name" class="form-control" placeholder="Name">
+            <label>Name</label>
+        </div><br>
+        <div class="form-floating">
+            <input type="text" name="price" class="form-control" placeholder="Price">
+            <label>Price</label>
+        </div><br>
+        <div class="form-floating">
+            <input type="text" name="count" class="form-control" placeholder="Count">
+            <label>Count</label>
+        </div><br>
+        <div class="form-floating">
+            <input type="text" name="image" class="form-control" placeholder="Url">
+            <label>Image</label>
+        </div><br>
+        <button class="btn btn-primary w-100 py-2" type="submit">Apply</button>
+    </form>
+</main>
 </body>
 </html>

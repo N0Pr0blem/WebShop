@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 
@@ -23,15 +24,15 @@ public class HomeController {
     Logger log = LogManager.getLogger(UserController.class);
 
     @GetMapping("/home")
-    public String home(Model model,Principal principal) {
+    public String home(Model model, Principal principal) {
         Iterable<Product> allProducts = productRepository.findAll();
         String login = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         boolean isAdmin;
         model.addAttribute("products", allProducts);
         model.addAttribute("login", login);
-        if(principal!=null) {
+        if (principal != null) {
             isAdmin = userRepository.findByUsername(principal.getName()).getRoles().contains(Role.ADMIN);
-            model.addAttribute("isAdmin",isAdmin);
+            model.addAttribute("isAdmin", isAdmin);
         }
         return "home";
     }
@@ -40,6 +41,5 @@ public class HomeController {
     public String toHome(Model model) {
         return "redirect:/home";
     }
-
 
 }
