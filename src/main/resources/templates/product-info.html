@@ -20,11 +20,12 @@
             <span class="form-control" th:text="${'Price: '+product.price}"></span><br>
             <span class="form-control" th:text="${'Count: '+product.count}"></span>
             <br><br><br>
-            <form th:action="@{'/product'+product+'/buy'}" method="post">
+            <form th:action="${'/product/'+product.id+'/buy'}" method="post">
                 <h1 style="text-align:center;">Buy:</h1>
                 <br><br>
                 <div class="form-floating" >
                     <input type="text" name="count" class="form-control" placeholder="Count">
+                    <input type="hidden" name="productId" th:value="${product.id}">
                     <label>Count</label>
                 </div><br>
                 <button class="btn btn-outline-dark w-100 py-2" type="submit">OK</button>
