@@ -1,7 +1,10 @@
 package com.travin.myshop.controller;
 
 import com.travin.myshop.domain.Product;
+import com.travin.myshop.exception.InputDataException;
 import com.travin.myshop.repos.ProductRepository;
+import com.travin.myshop.service.ProductService;
+import com.travin.myshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ProductService productService;
 
     @GetMapping
     public String toMainAdminPage(Model model) {
@@ -31,16 +36,20 @@ public class AdminController {
     @PostMapping("/add")
     public String add(
             @RequestParam String name,
-            @RequestParam Double price,
-            @RequestParam Integer count,
+            @RequestParam String price,
+            @RequestParam String count,
             @RequestParam String company,
             @RequestParam String description,
             @RequestParam String image,
             Model model
     ) {
-        Product product = new Product(name, price, company, description, count, image);
-        productRepository.save(product);
-        return "/home";
+        try {
+            productService.addNewProduct(name, price, count, company, description, image);
+        } catch (InputDataException inputDataException) {
+            model.addAttribute("message", inputDataException.getMessage());
+        } finally {
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/product/{product}/edit")
@@ -55,24 +64,16 @@ public class AdminController {
             @RequestParam String name,
             @RequestParam String company,
             @RequestParam String description,
-            @RequestParam Double price,
-            @RequestParam Integer count,
+            @RequestParam String price,
+            @RequestParam String count,
             @RequestParam String image,
             Model model
     ) {
         try {
-            if (!name.isEmpty() && price != null && count != null && image.isEmpty()) {
-                product.setName(name);
-                product.setPrice(price);
-                product.setCompany(company);
-                product.setDescription(description);
-                product.setCount(count);
-                product.setImage(image);
-                productRepository.save(product);
-            }
-        }catch(Exception ex){
-
-        }finally{
+            productService.updateProduct(product, name, price, company, description, count, image);
+        } catch (InputDataException ex) {
+            model.addAttribute("message", ex.getMessage());
+        } finally {
             return "redirect:/home";
         }
     }

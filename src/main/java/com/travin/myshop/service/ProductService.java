@@ -1,21 +1,51 @@
 package com.travin.myshop.service;
 
 import com.travin.myshop.domain.Product;
-import com.travin.myshop.domain.User;
-import com.travin.myshop.repos.UserRepository;
+import com.travin.myshop.exception.InputDataException;
+import com.travin.myshop.repos.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+import java.util.ArrayList;
+
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 @Service
 public class ProductService {
     @Autowired
-    UserRepository userRepository;
+    ProductRepository productRepository;
 
-    public void addToCart(Product product, Principal principal){
-        User user = userRepository.findByUsername(principal.getName());
-        user.getCart().getProducts().add(product);
-        userRepository.save(user);
+    public ArrayList<Product> getAllProducts() {
+        return (ArrayList<Product>) productRepository.findAll();
+    }
+
+    public void addNewProduct(String name, String price, String company, String description, String count, String image) throws InputDataException {
+        if (name.isEmpty() || price.isEmpty() || company.isEmpty() || count.isEmpty() || image.isEmpty()) {
+            throw new InputDataException("Wrong product data");
+        }
+        if (!isNumeric(price) || isNumeric(count)) {
+            throw new InputDataException("Wrong price or count");
+        } else {
+            Product product = new Product(name, Double.parseDouble(price), company, description, Integer.parseInt(count), image);
+            productRepository.save(product);
+        }
+    }
+
+    public void updateProduct(Product product, String name, String price, String company, String description, String count, String image) throws InputDataException {
+        if (name.isEmpty() || price.isEmpty() || company.isEmpty() || count.isEmpty() || image.isEmpty()) {
+            throw new InputDataException("Wrong product data");
+        }
+        if (!isNumeric(price) || isNumeric(count)) {
+            throw new InputDataException("Wrong price or count");
+        } else {
+            product.setName(name);
+            product.setPrice(Double.parseDouble(price));
+            product.setCompany(company);
+            product.setDescription(description);
+            product.setCount(Integer.parseInt(count));
+            product.setImage(image);
+            productRepository.save(product);
+        }
+
     }
 }
