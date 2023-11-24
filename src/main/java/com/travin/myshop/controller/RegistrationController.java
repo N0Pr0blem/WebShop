@@ -29,13 +29,15 @@ public class RegistrationController {
             model.addAttribute("message", "User is already exist");
             return "registration";
         }
-
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
-        model.addAttribute("message", "User was created");
-
-        return "redirect:/login";
-
+        if (!user.getUsername().isEmpty() && !user.getPassword().isEmpty()) {
+            user.setActive(true);
+            user.setRoles(Collections.singleton(Role.USER));
+            userRepository.save(user);
+            return "redirect:/login";
+        }
+        else {
+            model.addAttribute("message", "Wrong username or password");
+            return "registration";
+        }
     }
 }

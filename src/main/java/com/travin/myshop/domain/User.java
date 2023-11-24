@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "usr")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +18,10 @@ public class User implements UserDetails {
     private String phone;
     private String email;
     private boolean active;
+
+    @ElementCollection(targetClass = Product.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="user_cart", joinColumns = @JoinColumn(name="user_id"))
+    private Set<Product> cart;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
@@ -103,5 +107,13 @@ public class User implements UserDetails {
 
     public String getPhone() {
         return phone;
+    }
+
+    public Set<Product> getCart() {
+        return cart;
+    }
+
+    public void setCart(Set<Product> cart) {
+        this.cart = cart;
     }
 }
