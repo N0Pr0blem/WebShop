@@ -17,8 +17,6 @@ import java.util.Collections;
 @Controller
 public class RegistrationController {
     @Autowired
-    UserRepository userRepository;
-    @Autowired
     RegistrationService registrationService;
 
     @GetMapping("/registration")

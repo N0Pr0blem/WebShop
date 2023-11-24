@@ -4,6 +4,7 @@ import com.travin.myshop.domain.Product;
 import com.travin.myshop.domain.User;
 import com.travin.myshop.repos.ProductRepository;
 import com.travin.myshop.repos.UserRepository;
+import com.travin.myshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,7 @@ import java.security.Principal;
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
-    ProductRepository productRepository;
-    @Autowired
-    UserRepository userRepository;
+    ProductService productService;
 
     @GetMapping("{product}")
     public String productInfo(@PathVariable Product product, Model model) {
@@ -34,9 +33,7 @@ public class ProductController {
             Principal principal,
             Model model
     ) {
-        User user = userRepository.findByUsername(principal.getName());
-        user.getCart().getProducts().add(product);
-        userRepository.save(user);
+        productService.addToCart(product,principal);
         return "redirect:/home";
     }
 }
