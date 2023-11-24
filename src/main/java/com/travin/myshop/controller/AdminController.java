@@ -53,6 +53,8 @@ public class AdminController {
     public String saveEdit(
             @RequestParam("productId") Product product,
             @RequestParam String name,
+            @RequestParam String company,
+            @RequestParam String description,
             @RequestParam Double price,
             @RequestParam Integer count,
             @RequestParam String image,
@@ -61,6 +63,8 @@ public class AdminController {
         if(name!=null && price!=null && count!=null && image!=null){
             product.setName(name);
             product.setPrice(price);
+            product.setCompany(company);
+            product.setDescription(description);
             product.setCount(count);
             product.setImage(image);
             productRepository.save(product);
