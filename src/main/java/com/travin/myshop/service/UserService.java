@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         if (username.isEmpty() || phone.isEmpty() || email.isEmpty() || form.isEmpty()) {
             throw new InputDataException("Incorrect data was entered. Try again");
         }
-        if (userRepository.findByUsername(username) != null) {
+        if (userRepository.findByUsername(username) != null && !username.equals(user.getUsername())) {
             throw new UserAlreadyExistException("This username is occupied");
         } else {
             user.setUsername(username);
@@ -56,7 +56,8 @@ public class UserService implements UserDetailsService {
                 }
             }
 
-            userRepository.save(user);
+            if(!user.getRoles().isEmpty()) userRepository.save(user);
+            else throw new InputDataException("Please choose user role");
         }
     }
 

@@ -59,6 +59,7 @@ public class UserController {
             model.addAttribute("message",ex.toString());
         }
         finally {
+            model.addAttribute("users", userService.getAllUsers());
             return "user-list";
         }
     }
