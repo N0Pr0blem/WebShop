@@ -29,8 +29,16 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam String name, @RequestParam String price, @RequestParam Integer count, @RequestParam String image, Model model) {
-        Product product = new Product(name, price, count, image);
+    public String add(
+            @RequestParam String name,
+            @RequestParam Double price,
+            @RequestParam Integer count,
+            @RequestParam String company,
+            @RequestParam String description,
+            @RequestParam String image,
+            Model model
+    ) {
+        Product product = new Product(name, price,company,description, count, image);
         productRepository.save(product);
         return "/home";
     }
@@ -45,7 +53,9 @@ public class AdminController {
     public String saveEdit(
             @RequestParam("productId") Product product,
             @RequestParam String name,
-            @RequestParam String price,
+            @RequestParam String company,
+            @RequestParam String description,
+            @RequestParam Double price,
             @RequestParam Integer count,
             @RequestParam String image,
             Model model
@@ -53,6 +63,8 @@ public class AdminController {
         if(name!=null && price!=null && count!=null && image!=null){
             product.setName(name);
             product.setPrice(price);
+            product.setCompany(company);
+            product.setDescription(description);
             product.setCount(count);
             product.setImage(image);
             productRepository.save(product);
