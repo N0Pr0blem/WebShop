@@ -35,7 +35,7 @@ public class ProductController {
             Model model
     ) {
         User user = userRepository.findByUsername(principal.getName());
-        user.getCart().add(product);
+        user.getCart().getProducts().add(product);
         userRepository.save(user);
         return "redirect:/home";
     }

@@ -19,9 +19,9 @@ public class User implements UserDetails {
     private String email;
     private boolean active;
 
-    @ElementCollection(targetClass = Product.class, fetch = FetchType.EAGER)
-    @CollectionTable(name="user_cart", joinColumns = @JoinColumn(name="user_id"))
-    private Set<Product> cart;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    private Cart cart = new Cart();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
@@ -109,11 +109,11 @@ public class User implements UserDetails {
         return phone;
     }
 
-    public Set<Product> getCart() {
+    public Cart getCart() {
         return cart;
     }
 
-    public void setCart(Set<Product> cart) {
+    public void setCart(Cart cart) {
         this.cart = cart;
     }
 }

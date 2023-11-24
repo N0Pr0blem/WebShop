@@ -19,30 +19,36 @@
 </header>
 <div class="container mt-5">
     <h1>Cart</h1>
-        <h2 th:if="${items.size==0}">Empty...</h2>
-        <div class="alert alert-info mt-2" th:each="item : ${items}">
-            <div class="row">
-                <div class="col-sm">
-                    <img style="height:200px;width:200px;" th:src="${item.image}"/>
-                </div>
-                <div class="col-sm">
-                    <h1 th:text="${item.name}"></h1>
-                    <h4 th:text="${'Company: '+item.company}"></h4>
-                    <h4 th:text="${'Description: '+item.description}"></h4><br>
-                    <b th:text="${item.count==0}? 'Out of stock':'Count: '+${item.count}"></b>
-                </div>
-                <div class="col-sm">
-                    <form th:action="@{/account/cart/buy}" method="post">
-                        <input type="hidden" name="productId" th:value="${item.id}">
-                        <input type="submit" th:value="Buy" class="btn btn-outline-dark w-100 py-2">
-                    </form><br>
-                    <form th:action="@{/account/cart/delete}" method="post">
-                        <input type="hidden" name="productId" th:value="${item.id}">
-                        <input type="submit" th:value="Delete" class="btn btn-warning   w-100 py-2">
-                    </form>
-                </div>
+    <h2 th:if="${items.size==0}">Empty...</h2>
+    <div class="alert alert-info mt-2" th:each="item : ${items}">
+        <div class="row">
+            <div class="col-sm">
+                <img style="height:200px;width:200px;" th:src="${item.image}"/>
+            </div>
+            <div class="col-sm">
+                <h1 th:text="${item.name}"></h1>
+                <h4 th:text="${'Company: '+item.company}"></h4>
+                <h4 th:text="${'Description: '+item.description}"></h4><br>
+                <b th:text="${item.count==0}? 'Out of stock':'Count: '+${item.count}"></b>
+            </div>
+            <div class="col-sm">
+                <form th:if="${item.count!=0}" th:action="@{/account/cart/buy}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <b style="color:red;" th:text="${message}"></b>
+                    <div class="form-floating">
+                        <input type="text" name="str_count" class="form-control" placeholder="Count">
+                        <label>Count</label></div>
+                    <br>
+                    <input type="submit" th:value="Buy" class="btn btn-outline-dark w-100 py-2">
+                </form>
+                <br>
+                <form th:action="@{/account/cart/delete}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <input type="submit" th:value="Delete" class="btn btn-warning   w-100 py-2">
+                </form>
             </div>
         </div>
+    </div>
     </form>
 </div>
 </body>
