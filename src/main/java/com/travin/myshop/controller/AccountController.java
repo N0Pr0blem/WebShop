@@ -1,5 +1,6 @@
 package com.travin.myshop.controller;
 
+import com.travin.myshop.domain.Product;
 import com.travin.myshop.domain.Role;
 import com.travin.myshop.domain.User;
 import com.travin.myshop.repos.UserRepository;
@@ -9,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/account")
@@ -35,6 +38,18 @@ public class AccountController {
     public String getCart(Model model, Principal principal){
         User user = userRepository.findByUsername(principal.getName());
         model.addAttribute("items",user.getCart());
+        boolean isAdmin;
+        if (principal != null) {
+            isAdmin = userRepository.findByUsername(principal.getName()).getRoles().contains(Role.ADMIN);
+            model.addAttribute("isAdmin", isAdmin);
+        }
         return "user-cart";
+    }
+    @PostMapping("/cart/delete")
+    public String deleteProductFromCart(@RequestParam("productId") Product product,Principal principal){
+        User user = userRepository.findByUsername(principal.getName());
+        user.getCart().remove(product);
+        userRepository.save(user);
+        return"redirect:/account/cart";
     }
 }

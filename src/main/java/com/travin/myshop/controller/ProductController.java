@@ -28,19 +28,15 @@ public class ProductController {
         return "product-info";
     }
 
-    @PostMapping("{product}/buy")
+    @PostMapping("{product}/to_cart")
     public String buyProduct(
             @RequestParam("productId") Product product,
-            @RequestParam Integer count,
             Principal principal,
             Model model
     ) {
         User user = userRepository.findByUsername(principal.getName());
-        if (product.getCount() > count && count > 0 && count != null) {
-            product.setCount(count);
-            user.getCart().add(product);
-            userRepository.save(user);
-        }
+        user.getCart().add(product);
+        userRepository.save(user);
         return "redirect:/home";
     }
 }
