@@ -36,6 +36,10 @@ public class AccountController {
 
         return "account-info";
     }
+    @GetMapping
+    public String redirectToHome(Model model){
+        return "redirect:/home";
+    }
 
     @GetMapping("/cart")
     public String getCart(Model model, Principal principal){
@@ -77,5 +81,19 @@ public class AccountController {
         finally {
             return"redirect:/account/cart";
         }
+    }
+
+    @PostMapping("/edit")
+    public String editAccount(
+            @RequestParam("userId") User user,
+            @RequestParam String new_password,
+            @RequestParam String confirm_password
+    ){
+        if(new_password.equals(confirm_password))
+        {
+            user.setPassword(new_password);
+            userRepository.save(user);
+        }
+        return "redirect:/account";
     }
 }

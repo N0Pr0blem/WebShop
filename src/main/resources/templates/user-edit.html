@@ -17,17 +17,27 @@
     </ul>
 </header>
 <div class="container">
-    <h1>User editor</h1>
-    <form th:action="@{/admin/user}" method="post">
-        <input type="text" th:value="${user.username}" name="username">
-        <div th:each="role : ${roles}">
+    <form th:action="@{/admin/user}" method="post"
+          style="width:500px;height:100px;margin-left: auto; margin-right: auto;text-align:center;">
+        <h1>User editor</h1><br>
+        <div class="form-floating">
+            <input class="form-control" type="text" th:value="${user.username}" name="username" placeholder="Username">
+            <label>Username</label>
+        </div><br>
+        <div th:each="role : ${roles}" style="text-align:left;">
             <input type="checkbox" th:name="${role}" th:text="${role}"
                    th:checked="${#arrays.contains(user.roles,role)}">
-        </div>
-        <input type="text" th:value="${user.phone}" name="phone">
-        <input type="text" th:value="${user.email}" name="email">
+        </div><br>
+        <div class="form-floating">
+            <input class="form-control" type="text" th:value="${user.phone}" name="phone" placeholder="Phone">
+            <label>Phone</label>
+        </div><br>
+        <div class="form-floating">
+            <input class="form-control" type="text" th:value="${user.email}" name="email" placeholder="Email">
+            <label>Email</label>
+        </div><br>
         <input type="hidden" th:value="${user.id}" name="userId">
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-warning   w-100 py-2">Save</button>
     </form>
 </div>
 </body>

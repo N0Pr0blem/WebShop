@@ -17,11 +17,33 @@
         <li class="nav-item"><a href="/admin/add" class="nav-link">Products</a></li>
     </ul>
 </header>
+
 <div class="container">
-    <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
-    <div th:if="${user}">
-        <span th:text="${user.id}"></span>
-    </div>
+    <form th:action="@{/account/edit}" method="post" style="width:500px;height:100px;margin-left: auto; margin-right: auto;text-align:left;">
+        <h1 style="text-align:center;">Welcome, <span th:text="${user.username}"></span>!</h1>
+        <div class="form-floating">
+            <span th:text="${user.username}" class="form-control"></span>
+            <label>Username</label>
+        </div><br>
+        <div class="form-floating">
+            <span th:text="${user.phone}" class="form-control"></span>
+            <label>Phone</label>
+        </div><br>
+        <div class="form-floating">
+            <span th:text="${user.email}" class="form-control"></span>
+            <label>Email</label>
+        </div><br>
+        <div class="form-floating">
+            <input type="password" name="new_password" class="form-control" placeholder="New password">
+            <label>New password</label>
+        </div><br>
+        <div class="form-floating">
+            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm new password">
+            <label>Confirm new password</label>
+        </div><br>
+        <input type="hidden" name="userId" th:value="${user.id}">
+        <input type="submit" value="Change password" class="btn btn-outline-dark w-100 py-2">
+    </form>
 </div>
 </body>
 </html>
