@@ -38,7 +38,7 @@ public class AdminController {
             @RequestParam String image,
             Model model
     ) {
-        Product product = new Product(name, price,company,description, count, image);
+        Product product = new Product(name, price, company, description, count, image);
         productRepository.save(product);
         return "/home";
     }
@@ -60,16 +60,21 @@ public class AdminController {
             @RequestParam String image,
             Model model
     ) {
-        if(name!=null && price!=null && count!=null && image!=null){
-            product.setName(name);
-            product.setPrice(price);
-            product.setCompany(company);
-            product.setDescription(description);
-            product.setCount(count);
-            product.setImage(image);
-            productRepository.save(product);
+        try {
+            if (!name.isEmpty() && price != null && count != null && image.isEmpty()) {
+                product.setName(name);
+                product.setPrice(price);
+                product.setCompany(company);
+                product.setDescription(description);
+                product.setCount(count);
+                product.setImage(image);
+                productRepository.save(product);
+            }
+        }catch(Exception ex){
+
+        }finally{
+            return "redirect:/home";
         }
-        return "redirect:/home";
     }
 
 }

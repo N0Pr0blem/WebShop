@@ -18,6 +18,7 @@
 </header>
 <div class="container">
     <h1>Users</h1>
+    <h2 th:text="${message}"></h2>
     <div th:each="el : ${users}">
         <span th:text="${el.username}"></span>
         <span th:text="@{User}" class="badge text-bg-success rounded-pill"></span>
