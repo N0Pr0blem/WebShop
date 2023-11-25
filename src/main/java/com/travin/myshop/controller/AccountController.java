@@ -1,12 +1,9 @@
 package com.travin.myshop.controller;
 
 import com.travin.myshop.domain.Product;
-import com.travin.myshop.domain.Role;
 import com.travin.myshop.domain.User;
 import com.travin.myshop.exception.AuthorizationException;
 import com.travin.myshop.exception.InputDataException;
-import com.travin.myshop.repos.ProductRepository;
-import com.travin.myshop.repos.UserRepository;
 import com.travin.myshop.service.ProductService;
 import com.travin.myshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ProductRepository productRepository;
     @Autowired
     UserService userService;
     @Autowired
@@ -35,6 +27,7 @@ public class AccountController {
     @PostMapping()
     public String getAccount(Model model, Principal principal) {
         try {
+            model.addAttribute("user", userService.getUserByPrincipal(principal));
             model.addAttribute("isAdmin", userService.isAdminByPrincipal(principal));
         } catch (AuthorizationException ex) {
             model.addAttribute("message", ex.getMessage());
@@ -80,7 +73,7 @@ public class AccountController {
             Principal principal
     ) {
         try {
-            userService.deleteProductFromPrincipalCart(principal,product);
+            userService.deleteProductFromPrincipalCart(principal, product);
             productService.buyProduct(product, str_count);
         } catch (InputDataException ex) {
             model.addAttribute("message", ex.getMessage());

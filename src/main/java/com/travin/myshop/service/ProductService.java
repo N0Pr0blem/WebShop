@@ -3,6 +3,7 @@ package com.travin.myshop.service;
 import com.travin.myshop.domain.Product;
 import com.travin.myshop.exception.InputDataException;
 import com.travin.myshop.repos.ProductRepository;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,11 @@ public class ProductService {
         return (ArrayList<Product>) productRepository.findAll();
     }
 
-    public void addNewProduct(String name, String price, String company, String description, String count, String image) throws InputDataException {
+    public void addNewProduct(String name, String price, String count, String company, String description, String image) throws InputDataException {
         if (name.isEmpty() || price.isEmpty() || company.isEmpty() || count.isEmpty() || image.isEmpty()) {
             throw new InputDataException("Wrong product data");
         }
-        if (!isNumeric(price) || isNumeric(count)) {
+        if (!NumberUtils.isCreatable(price) || !NumberUtils.isCreatable(count)) {
             throw new InputDataException("Wrong price or count");
         } else {
             Product product = new Product(name, Double.parseDouble(price), company, description, Integer.parseInt(count), image);
@@ -35,7 +36,7 @@ public class ProductService {
         if (name.isEmpty() || price.isEmpty() || company.isEmpty() || count.isEmpty() || image.isEmpty()) {
             throw new InputDataException("Wrong product data");
         }
-        if (!isNumeric(price) || isNumeric(count)) {
+        if (!NumberUtils.isCreatable(price) || !NumberUtils.isCreatable(count)) {
             throw new InputDataException("Wrong price or count");
         } else {
             product.setName(name);
@@ -49,7 +50,7 @@ public class ProductService {
     }
     public void buyProduct(Product product, String str_count) throws InputDataException {
         int count;
-        if(isNumeric(str_count)){
+        if(NumberUtils.isCreatable(str_count)){
             count = Integer.parseInt(str_count);
             if ( count > 0 && count <= product.getCount()) {
                 product.setCount(product.getCount() - count);

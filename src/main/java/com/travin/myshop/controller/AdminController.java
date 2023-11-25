@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
     @Autowired
-    ProductRepository productRepository;
-    @Autowired
     ProductService productService;
 
     @GetMapping

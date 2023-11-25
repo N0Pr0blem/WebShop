@@ -93,13 +93,13 @@ public class UserService implements UserDetailsService {
             return userFromDB.getRoles().contains(Role.ADMIN);
         }
     }
-    public Cart getCartByPrincipal(Principal principal) throws AuthorizationException {
+    public List<Product> getCartByPrincipal(Principal principal) throws AuthorizationException {
         if(principal==null){
             throw new AuthorizationException("You should log in");
         }
         else{
             User userFromDB = userRepository.findByUsername(principal.getName());
-            return userFromDB.getCart();
+            return userFromDB.getCart().getProducts();
         }
     }
     public void deleteProductFromPrincipalCart(Principal principal,Product product) throws AuthorizationException {
@@ -119,6 +119,15 @@ public class UserService implements UserDetailsService {
             userRepository.save(user);
         }else{
             throw new InputDataException("Please enter correct password");
+        }
+    }
+    public User getUserByPrincipal(Principal principal) throws AuthorizationException {
+        if(principal==null){
+            throw new AuthorizationException("You should log in");
+        }
+        else{
+            User userFromDB = userRepository.findByUsername(principal.getName());
+            return userFromDB;
         }
     }
 }

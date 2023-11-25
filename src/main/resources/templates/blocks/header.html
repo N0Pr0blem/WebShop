@@ -1,9 +1,9 @@
 <div th:fragment="header">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img class="bi me-2" width="40" height="32" role="img" src="https://imageup.ru/img93/4607471/panda.jpg">
-            </a>
+            <form th:action="@{/home}">
+            <input type="submit" value="Home" class="btn btn-outline-light me-2"/>
+            </form>
 
             <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></div>
 
