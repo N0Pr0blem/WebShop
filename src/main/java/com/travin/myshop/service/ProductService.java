@@ -46,6 +46,22 @@ public class ProductService {
             product.setImage(image);
             productRepository.save(product);
         }
+    }
+    public void buyProduct(Product product, String str_count) throws InputDataException {
+        int count;
+        if(isNumeric(str_count)){
+            count = Integer.parseInt(str_count);
+            if ( count > 0 && count <= product.getCount()) {
+                product.setCount(product.getCount() - count);
+                productRepository.save(product);
+            }
+            else{
+                throw new InputDataException("Your count much more than product count or low than zero");
+            }
+        }
+        else{
+            throw new InputDataException("Wrong count");
+        }
 
     }
 }

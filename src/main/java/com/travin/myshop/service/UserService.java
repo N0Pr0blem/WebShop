@@ -1,5 +1,6 @@
 package com.travin.myshop.service;
 
+import com.travin.myshop.domain.Cart;
 import com.travin.myshop.domain.Product;
 import com.travin.myshop.domain.Role;
 import com.travin.myshop.domain.User;
@@ -91,6 +92,33 @@ public class UserService implements UserDetailsService {
             User userFromDB = userRepository.findByUsername(principal.getName());
             return userFromDB.getRoles().contains(Role.ADMIN);
         }
+    }
+    public Cart getCartByPrincipal(Principal principal) throws AuthorizationException {
+        if(principal==null){
+            throw new AuthorizationException("You should log in");
+        }
+        else{
+            User userFromDB = userRepository.findByUsername(principal.getName());
+            return userFromDB.getCart();
+        }
+    }
+    public void deleteProductFromPrincipalCart(Principal principal,Product product) throws AuthorizationException {
+        if(principal==null){
+            throw new AuthorizationException("You should log in");
+        }
+        else{
+            User userFromDB = userRepository.findByUsername(principal.getName());
+            userFromDB.getCart().getProducts().remove(product);
+            userRepository.save(userFromDB);
+        }
 
+    }
+    public void changePassword(User user, String new_password, String confirm_password) throws InputDataException {
+        if (new_password.equals(confirm_password) && !new_password.isEmpty()) {
+            user.setPassword(new_password);
+            userRepository.save(user);
+        }else{
+            throw new InputDataException("Please enter correct password");
+        }
     }
 }
