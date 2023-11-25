@@ -20,7 +20,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name,  Double price,String company,String description,Integer count, String image) {
+    public Product(String name, Double price, String company, String description, Integer count, String image) {
         this.name = name;
         this.price = price;
         this.company = company;
@@ -52,6 +52,7 @@ public class Product {
     public void setPrice(Double price) {
         this.price = price;
     }
+
     public Integer getCount() {
         return count;
     }
@@ -59,6 +60,7 @@ public class Product {
     public void setCount(Integer count) {
         this.count = count;
     }
+
     public String getImage() {
         return image;
     }

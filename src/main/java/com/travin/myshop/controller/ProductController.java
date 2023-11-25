@@ -1,10 +1,6 @@
 package com.travin.myshop.controller;
 
 import com.travin.myshop.domain.Product;
-import com.travin.myshop.domain.User;
-import com.travin.myshop.repos.ProductRepository;
-import com.travin.myshop.repos.UserRepository;
-import com.travin.myshop.service.ProductService;
 import com.travin.myshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,7 +30,7 @@ public class ProductController {
             Principal principal,
             Model model
     ) {
-        userService.addToCart(product,principal);
+        userService.addToCart(product, principal);
         return "redirect:/home";
     }
 }

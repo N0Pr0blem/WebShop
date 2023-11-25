@@ -22,14 +22,13 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String addUser(User user, Model model) {
-        try{
+        try {
             userService.addUser(user);
             return "redirect:/login";
-        }catch(InputDataException | UserAlreadyExistException myException){
-            model.addAttribute("message",myException.getMessage());
+        } catch (InputDataException | UserAlreadyExistException myException) {
+            model.addAttribute("message", myException.getMessage());
             return "registration";
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             model.addAttribute("message", ex.toString());
             return "registration";
         }

@@ -2,11 +2,8 @@ package com.travin.myshop.controller;
 
 import com.travin.myshop.domain.Product;
 import com.travin.myshop.exception.InputDataException;
-import com.travin.myshop.repos.ProductRepository;
 import com.travin.myshop.service.ProductService;
-import com.travin.myshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

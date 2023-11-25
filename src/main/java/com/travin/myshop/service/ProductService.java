@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-import static org.apache.commons.lang3.StringUtils.isNumeric;
-
 @Service
 public class ProductService {
     @Autowired
@@ -48,19 +46,18 @@ public class ProductService {
             productRepository.save(product);
         }
     }
+
     public void buyProduct(Product product, String str_count) throws InputDataException {
         int count;
-        if(NumberUtils.isCreatable(str_count)){
+        if (NumberUtils.isCreatable(str_count)) {
             count = Integer.parseInt(str_count);
-            if ( count > 0 && count <= product.getCount()) {
+            if (count > 0 && count <= product.getCount()) {
                 product.setCount(product.getCount() - count);
                 productRepository.save(product);
-            }
-            else{
+            } else {
                 throw new InputDataException("Your count much more than product count or low than zero");
             }
-        }
-        else{
+        } else {
             throw new InputDataException("Wrong count");
         }
 
