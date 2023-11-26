@@ -23,7 +23,7 @@
             <span class="form-control" th:text="${'Description: '+product.description}"></span>
             <br>
             <form th:if="${login!='anonymousUser'}" th:action="${'/product/'+product.id+'/to_cart'}" method="post">
-                    <input type="hidden" name="productId" th:value="${product.id}">
+                <input type="hidden" name="productId" th:value="${product.id}">
                 <button class="btn btn-outline-dark w-100 py-2" type="submit">Add to cart</button>
             </form>
         </div>
