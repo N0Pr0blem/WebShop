@@ -57,6 +57,10 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 		<!--security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
